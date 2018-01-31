@@ -1,5 +1,6 @@
 #import "ExistentDrawingsViewController.h"
 #import "DrawingViewController.h"
+#import "FileSystemManager.h"
 
 
 @interface ExistentDrawingsViewController ()
@@ -13,12 +14,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *photosPath = [documentsPath stringByAppendingPathComponent:@"/Drawings"];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *dirContents = [fm contentsOfDirectoryAtPath:photosPath error:nil];
-    self.photoArray = [dirContents mutableCopy];
-
+    self.photoArray = [FileSystemManager.existentDrawingsNames mutableCopy];
     UITableView *tableView = (id) [self.view viewWithTag:1];
     UIEdgeInsets contentInset = tableView.contentInset;
     contentInset.top = 20;

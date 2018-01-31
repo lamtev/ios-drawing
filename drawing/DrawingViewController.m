@@ -1,5 +1,6 @@
 #import "DrawingViewController.h"
 #import "NSString+JStyle.h"
+#import "FileSystemManager.h"
 
 @interface DrawingViewController ()
 @property(nonatomic) IBOutlet UINavigationItem *navigationItem;
@@ -29,12 +30,10 @@
     red = green = blue = 0.0;
     thickness = 10.0;
     opacity = 1.0;
-    self.navigationItem.title = [drawingName isEmpty] ? @"New drawing" : drawingName;
+    drawingName = [drawingName isEmpty] ? @"New drawing" : drawingName;
+    self.navigationItem.title = drawingName;
     if (drawingExists) {
-        NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-        NSString *drawingSubPath = [NSString stringWithFormat:@"/Drawings/%@", drawingName];
-        NSString *drawingPath = [documentsPath stringByAppendingPathComponent:drawingSubPath];
-        NSData *pngData = [NSData dataWithContentsOfFile:drawingPath];
+        NSData *pngData = [FileSystemManager drawingByName:drawingName];
         self.drawingImage.image = [UIImage imageWithData:pngData];
     }
 }
@@ -55,9 +54,7 @@
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
-    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *photosPath = [documentsPath stringByAppendingPathComponent:@"/Drawings"];
-    NSString *filePath = [photosPath stringByAppendingPathComponent:self.navigationItem.title];
+    NSString *filePath = [FileSystemManager pathToDrawingWithName:self.navigationItem.title];
     NSData *pngData = UIImagePNGRepresentation(image);
     [pngData writeToFile:filePath atomically:YES];
 }
