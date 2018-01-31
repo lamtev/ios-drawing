@@ -1,18 +1,10 @@
-//
-//  ExistentDrawingsViewController.m
-//  drawing
-//
-//  Created by anton.lamtev on 31.01.18.
-//  Copyright © 2018 anton.lamtev. All rights reserved.
-//
-
 #import "ExistentDrawingsViewController.h"
 #import "DrawingViewController.h"
 
 
 @interface ExistentDrawingsViewController ()
-@property(copy, nonatomic) NSMutableArray *photoArray;
-@property(retain, nonatomic) NSString *selectedCellDrawingName;
+@property(nonatomic) NSMutableArray *photoArray;
+@property(nonatomic) NSString *selectedCellDrawingName;
 @end
 
 @implementation ExistentDrawingsViewController {
@@ -25,7 +17,7 @@
     NSString *photosPath = [documentsPath stringByAppendingPathComponent:@"/Drawings"];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *dirContents = [fm contentsOfDirectoryAtPath:photosPath error:nil];
-    self.photoArray = [[dirContents mutableCopy] autorelease];
+    self.photoArray = [dirContents mutableCopy];
 
     UITableView *tableView = (id) [self.view viewWithTag:1];
     UIEdgeInsets contentInset = tableView.contentInset;
@@ -52,9 +44,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier
                                                             forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc]
+        cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
-              reuseIdentifier:identifier] autorelease];
+              reuseIdentifier:identifier];
     }
     cell.textLabel.text = self.photoArray[(NSUInteger) indexPath.row];
     return cell;
@@ -79,8 +71,4 @@
                      completion:nil];
 }
 
-- (void)dealloc {
-    [self.selectedCellDrawingName release];
-    [super dealloc];
-}
 @end

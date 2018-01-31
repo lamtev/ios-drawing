@@ -1,11 +1,3 @@
-//
-//  drawingTests.m
-//  drawingTests
-//
-//  Created by anton.lamtev on 30.01.18.
-//  Copyright © 2018 anton.lamtev. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 
 @interface drawingTests : XCTestCase

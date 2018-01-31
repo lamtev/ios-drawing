@@ -1,11 +1,3 @@
-//
-//  ViewController.m
-//  drawing
-//
-//  Created by anton.lamtev on 30.01.18.
-//  Copyright © 2018 anton.lamtev. All rights reserved.
-//
-
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -25,12 +17,6 @@
                                   withIntermediateDirectories:NO
                                                    attributes:nil
                                                         error:nil];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

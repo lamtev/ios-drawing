@@ -1,17 +1,9 @@
-//
-//  DrawingViewController.m
-//  drawing
-//
-//  Created by anton.lamtev on 30.01.18.
-//  Copyright © 2018 anton.lamtev. All rights reserved.
-//
-
 #import "DrawingViewController.h"
 #import "NSString+JStyle.h"
 
 @interface DrawingViewController ()
-@property(retain, nonatomic) IBOutlet UINavigationItem *navigationItem;
-@property(retain, nonatomic) IBOutlet UIImageView *drawingImage;
+@property(nonatomic) IBOutlet UINavigationItem *navigationItem;
+@property(nonatomic) IBOutlet UIImageView *drawingImage;
 @end
 
 @implementation DrawingViewController {
@@ -28,7 +20,7 @@
 }
 
 - (void)configureWithDrawingName:(NSString *)name andDrawingExists:(BOOL)exists {
-    drawingName = [name retain];
+    drawingName = name;
     drawingExists = exists;
 }
 
@@ -45,14 +37,6 @@
         NSData *pngData = [NSData dataWithContentsOfFile:drawingPath];
         self.drawingImage.image = [UIImage imageWithData:pngData];
     }
-    [drawingName release];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    [drawingName release];
-    [self.navigationItem release];
-    [self.drawingImage release];
 }
 
 - (IBAction)thicknessSliderChanged:(UISlider *)sender {
@@ -134,12 +118,6 @@
     CGContextMoveToPoint(context, lastPoint.x, lastPoint.y);
     CGContextAddLineToPoint(context, point.x, point.y);
     CGContextStrokePath(context);
-}
-
-- (void)dealloc {
-    [self.navigationItem release];
-    [self.drawingImage release];
-    [super dealloc];
 }
 
 @end
