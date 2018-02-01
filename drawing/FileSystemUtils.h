@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FileSystemManager : NSObject
+@interface FileSystemUtils : NSObject
 + (NSString *)pathToDrawings;
 
 + (NSString *)pathToDrawingWithName:(NSString *)drawingName;

@@ -1,6 +1,6 @@
 #import "DrawingViewController.h"
 #import "NSString+JStyle.h"
-#import "FileSystemManager.h"
+#import "FileSystemUtils.h"
 
 @interface DrawingViewController ()
 @property(nonatomic) IBOutlet UINavigationItem *navigationItem;
@@ -33,7 +33,7 @@
     if (self.drawingExists) {
         dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
         dispatch_async(queue, ^{
-            NSData *drawingPNG = [FileSystemManager drawingByName:self.drawingName];
+            NSData *drawingPNG = [FileSystemUtils drawingByName:self.drawingName];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.drawingImage.image = [UIImage imageWithData:drawingPNG];
             });
@@ -42,25 +42,26 @@
 }
 
 - (IBAction)thicknessSliderChanged:(UISlider *)sender {
-    float value = [sender value];
-    self.thickness = value;
+    self.thickness = [sender value];
 }
 
 - (IBAction)clearButtonPressed:(UIBarButtonItem *)sender {
+    UIGraphicsBeginImageContext(self.drawingImage.frame.size);
     self.drawingImage.image = nil;
+    UIGraphicsEndImageContext();
 }
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
     UIImage *image = self.drawingImage.image;
     if (!image) {
-        UIGraphicsBeginImageContextWithOptions(self.drawingImage.image.size, NO, 0.0);
+        UIGraphicsBeginImageContextWithOptions(self.drawingImage.bounds.size, NO, 0.0);
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
     dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
     dispatch_async(queue, ^{
-        [FileSystemManager saveDrawingAsPNG:UIImagePNGRepresentation(image)
-                                   withName:self.drawingName];
+        [FileSystemUtils saveDrawingAsPNG:UIImagePNGRepresentation(image)
+                                 withName:self.drawingName];
     });
 }
 
@@ -71,7 +72,6 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-
     self.touchIsSingle = NO;
     UITouch *touch = [touches anyObject];
     CGPoint destinationPoint = [touch locationInView:self.drawingImage];
