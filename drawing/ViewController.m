@@ -1,5 +1,5 @@
 #import "ViewController.h"
-#import "FileSystemManager.h"
+#import "FileSystemUtils.h"
 
 @interface ViewController ()
 
@@ -12,7 +12,7 @@
     dispatch_queue_t queue;
     queue = dispatch_queue_create("serialDispatchQueue", NULL);
     dispatch_async(queue, ^{
-        [FileSystemManager createDrawingsDirIfNotExists];
+        [FileSystemUtils createDrawingsDirIfNotExists];
     });
 }
 

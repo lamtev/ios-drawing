@@ -1,6 +1,6 @@
-#import "FileSystemManager.h"
+#import "FileSystemUtils.h"
 
-@implementation FileSystemManager
+@implementation FileSystemUtils
 
 + (NSString *)pathToDrawings {
     static NSString *drawingsPrefix = @"/Drawings";
@@ -38,7 +38,7 @@
 }
 
 + (BOOL)saveDrawingAsPNG:(NSData *)drawing withName:(NSString *)name {
-    NSString *pathToDrawing = [FileSystemManager pathToDrawingWithName:name];
+    NSString *pathToDrawing = [FileSystemUtils pathToDrawingWithName:name];
     return [drawing writeToFile:pathToDrawing atomically:YES];
 }
 

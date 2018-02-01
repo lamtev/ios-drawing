@@ -1,6 +1,6 @@
 #import "ExistentDrawingsViewController.h"
 #import "DrawingViewController.h"
-#import "FileSystemManager.h"
+#import "FileSystemUtils.h"
 
 
 @interface ExistentDrawingsViewController ()
@@ -14,7 +14,7 @@
     [super viewDidLoad];
     dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
     dispatch_async(queue, ^{
-        self.photoArray = [[FileSystemManager existentDrawingsNames] mutableCopy];
+        self.photoArray = [[FileSystemUtils existentDrawingsNames] mutableCopy];
     });
     UITableView *tableView = (id) [self.view viewWithTag:1];
     UIEdgeInsets contentInset = tableView.contentInset;
