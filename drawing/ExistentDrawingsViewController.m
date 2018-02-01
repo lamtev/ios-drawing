@@ -8,13 +8,14 @@
 @property(nonatomic) NSString *selectedCellDrawingName;
 @end
 
-@implementation ExistentDrawingsViewController {
-}
-@synthesize selectedCellDrawingName;
+@implementation ExistentDrawingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.photoArray = [FileSystemManager.existentDrawingsNames mutableCopy];
+    dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
+    dispatch_async(queue, ^{
+        self.photoArray = [[FileSystemManager existentDrawingsNames] mutableCopy];
+    });
     UITableView *tableView = (id) [self.view viewWithTag:1];
     UIEdgeInsets contentInset = tableView.contentInset;
     contentInset.top = 20;
@@ -60,8 +61,8 @@
             [self.storyboard instantiateViewControllerWithIdentifier:@"DrawingViewNavigationController"];
 
     DrawingViewController *drawingViewController = controller.viewControllers[0];
-    [drawingViewController configureWithDrawingName:selectedCellDrawingName
-                                           andDrawingExists:YES];
+    [drawingViewController configureWithDrawingName:self.selectedCellDrawingName
+                                   andDrawingExists:YES];
     [self presentViewController:controller
                        animated:YES
                      completion:nil];
