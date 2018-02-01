@@ -9,4 +9,8 @@
 + (NSArray<NSString *> *)existentDrawingsNames;
 
 + (NSData *)drawingByName:name;
+
++ (BOOL)createDrawingsDirIfNotExists;
+
++ (BOOL)saveDrawingAsPNG:(NSData *)drawing withName:(NSString *)name;
 @end

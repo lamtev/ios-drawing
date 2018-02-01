@@ -9,13 +9,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *drawingsPath = FileSystemManager.pathToDrawings;
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:drawingsPath])
-        [[NSFileManager defaultManager] createDirectoryAtPath:drawingsPath
-                                  withIntermediateDirectories:NO
-                                                   attributes:nil
-                                                        error:nil];
+    dispatch_queue_t queue;
+    queue = dispatch_queue_create("serialDispatchQueue", NULL);
+    dispatch_async(queue, ^{
+        [FileSystemManager createDrawingsDirIfNotExists];
+    });
 }
 
 @end
