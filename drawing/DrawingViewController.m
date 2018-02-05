@@ -56,4 +56,8 @@
     });
 }
 
+- (void)canRotate {
+
+}
+
 @end
