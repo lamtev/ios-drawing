@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32A1611F20283C53006526B6 /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1611E20283C53006526B6 /* DrawingView.m */; };
+		32A1612320283CAD006526B6 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1612220283CAD006526B6 /* Line.m */; };
 		32FFFDCB202070AA005031E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDCA202070AA005031E5 /* AppDelegate.m */; };
 		32FFFDCE202070AA005031E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDCD202070AA005031E5 /* ViewController.m */; };
 		32FFFDD1202070AA005031E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32FFFDCF202070AA005031E5 /* Main.storyboard */; };
@@ -32,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32A1611D20283C53006526B6 /* DrawingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
+		32A1611E20283C53006526B6 /* DrawingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
+		32A1612120283CAD006526B6 /* Line.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		32A1612220283CAD006526B6 /* Line.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 		32FFFDC6202070AA005031E5 /* drawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32FFFDC9202070AA005031E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		32FFFDCA202070AA005031E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -115,6 +121,10 @@
 				C17D67C00980FA9862ECD246 /* NSString+JStyle.h */,
 				C17D6FA62840747A14422C9E /* FileSystemUtils.h */,
 				C17D6D4B9CCA80510AF079F2 /* FileSystemUtils.m */,
+				32A1611D20283C53006526B6 /* DrawingView.h */,
+				32A1611E20283C53006526B6 /* DrawingView.m */,
+				32A1612120283CAD006526B6 /* Line.h */,
+				32A1612220283CAD006526B6 /* Line.m */,
 			);
 			path = drawing;
 			sourceTree = "<group>";
@@ -232,8 +242,10 @@
 			files = (
 				32FFFDF220208387005031E5 /* DrawingViewController.m in Sources */,
 				32FFFDCE202070AA005031E5 /* ViewController.m in Sources */,
+				32A1611F20283C53006526B6 /* DrawingView.m in Sources */,
 				32FFFDD9202070AA005031E5 /* main.m in Sources */,
 				32FFFDCB202070AA005031E5 /* AppDelegate.m in Sources */,
+				32A1612320283CAD006526B6 /* Line.m in Sources */,
 				32FFFDEF20207291005031E5 /* NewDrawingCreationViewController.m in Sources */,
 				C17D635D2693703405DE0F56 /* NSString+JStyle.m in Sources */,
 				32FFFDF520211AEC005031E5 /* ExistentDrawingsViewController.m in Sources */,

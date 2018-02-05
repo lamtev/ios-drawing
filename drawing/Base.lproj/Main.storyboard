@@ -115,7 +115,7 @@
         <scene sceneID="8wL-Ug-UC5">
             <objects>
                 <viewController id="dFt-nX-hfH" customClass="DrawingViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="S6N-9b-gGO">
+                    <view key="view" contentMode="scaleToFill" id="S6N-9b-gGO" customClass="DrawingView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -142,10 +142,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZw-UC-QMZ" userLabel="drawingImage">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Lh0-mr-LKD"/>
@@ -163,7 +159,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="drawingImage" destination="EZw-UC-QMZ" id="mT6-no-C4m"/>
                         <outlet property="navigationItem" destination="KzE-SM-mMG" id="pmi-hs-1av"/>
                     </connections>
                 </viewController>
@@ -259,6 +254,6 @@
         <image name="BackButton" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DJ4-nZ-EPm"/>
+        <segue reference="VOL-BC-anq"/>
     </inferredMetricsTieBreakers>
 </document>

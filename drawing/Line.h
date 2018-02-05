@@ -1,13 +1,12 @@
-//
-//  Line.h
-//  drawing
-//
-//  Created by anton.lamtev on 05.02.18.
-//  Copyright © 2018 anton.lamtev. All rights reserved.
-//
+#import <UIKit/UIKit.h>
 
-#import <Foundation/Foundation.h>
+@interface Line : NSObject <NSCoding>
 
-@interface Line : NSObject
+@property(assign, readonly) CGPoint startPoint;
+@property(assign, readonly) CGPoint endPoint;
+@property(readonly) UIColor *color;
+@property(assign, readonly) CGFloat thickness;
 
+- (instancetype)initWithStartPoint:(CGPoint)startPoint andEndPoint:(CGPoint)endPoint
+                          andColor:(UIColor *)color andThickness:(CGFloat)thickness;
 @end
