@@ -2,6 +2,7 @@
 #import "NSString+JStyle.h"
 #import "FileSystemUtils.h"
 #import "DrawingView.h"
+#import "UIColor+ByName.h"
 
 @interface DrawingViewController ()
 @property(nonatomic) IBOutlet UINavigationItem *navigationItem;
@@ -26,8 +27,7 @@
 }
 
 - (void)loadExistentDrawing {
-    dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
-    dispatch_async(queue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *lines = [FileSystemUtils drawingLinesByName:self.drawingName];
         dispatch_async(dispatch_get_main_queue(), ^{
             DrawingView *drawingView = (DrawingView *) self.view;
@@ -38,7 +38,7 @@
 
 - (IBAction)thicknessSliderChanged:(UISlider *)sender {
     DrawingView *drawingView = (DrawingView *) self.view;
-    drawingView.thickness = [sender value];
+    drawingView.thickness = sender.value;
 }
 
 - (IBAction)clearButtonPressed:(UIBarButtonItem *)sender {
@@ -48,16 +48,39 @@
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
     DrawingView *drawingView = (DrawingView *) self.view;
-    NSMutableArray *lines = [drawingView lines];
-    dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
-    dispatch_async(queue, ^{
+    NSMutableArray *lines = [[drawingView lines] copy];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [FileSystemUtils saveDrawingLines:lines
                                  withName:self.drawingName];
     });
 }
 
-- (void)canRotate {
+- (IBAction)colorButtonPressed:(UIBarButtonItem *)sender {
+    UIAlertController *alertController =
+            [UIAlertController alertControllerWithTitle:@"Choosing color"
+                                                message:nil
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
+    NSArray *colors = @[@"Black", @"Red", @"Blue", @"Green", @"Orange", @"Purple", @"White"];
+    for (NSString *color in colors) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:color
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *a) {
+                                                           DrawingView *drawingView = (DrawingView *) self.view;
+                                                           drawingView.color = [UIColor colorWithName:color];
+                                                       }];
+        [alertController addAction:action];
+    }
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController
+                       animated:YES
+                     completion:nil];
+}
 
+- (void)canRotate {
+    //Method enables landscape mode
 }
 
 @end

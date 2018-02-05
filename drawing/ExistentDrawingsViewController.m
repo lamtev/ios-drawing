@@ -12,8 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    dispatch_queue_t queue = dispatch_queue_create("serialDispatchQueue", NULL);
-    dispatch_async(queue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.photoArray = [[FileSystemUtils existentDrawingsNames] mutableCopy];
     });
     UITableView *tableView = (id) [self.view viewWithTag:1];
@@ -25,8 +24,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
