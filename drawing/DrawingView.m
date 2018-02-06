@@ -7,6 +7,7 @@
 @property(nonatomic, assign) BOOL touchIsSingle;
 @property(nonatomic) MutableArrayStack *undoStack;
 @property(nonatomic) MutableArrayStack *redoStack;
+@property (nonatomic) UIImage *previewImage;
 @end
 
 @implementation DrawingView
@@ -55,6 +56,10 @@
         CGContextSetRGBStrokeColor(context, red, green, blue, alpha);
         CGContextStrokePath(context);
     }
+    CGSize newSize = CGSizeMake(self.frame.size.width / 10, self.frame.size.height / 10);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    self.previewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
