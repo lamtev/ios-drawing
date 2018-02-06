@@ -8,13 +8,15 @@
 
 + (NSArray<NSString *> *)existentDrawingsNames;
 
++ (BOOL)createPreviewsDirIfNotExists;
+
 + (BOOL)createDrawingsDirIfNotExists;
 
 + (BOOL)saveDrawingLines:(NSMutableArray *)lines withName:(NSString *)name;
 
 + (NSMutableArray *)drawingLinesByName:(NSString *)name;
 
-+ (BOOL)saveDrawingAsPNG:(NSData *)drawing withName:(NSString *)name;
++ (BOOL)savePreview:(NSData *)preview withName:(NSString *)name;
 
-+ (NSData *)drawingPNGByName:(NSString *)name;
++ (NSData *)previewByName:(NSString *)name;
 @end

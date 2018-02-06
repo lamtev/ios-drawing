@@ -8,15 +8,20 @@
     return [documentsPath stringByAppendingPathComponent:drawingsPrefix];
 }
 
++ (NSString *)pathToPreviews {
+    static NSString *drawingsPrefix = @"/Previews";
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    return [documentsPath stringByAppendingPathComponent:drawingsPrefix];
+}
+
 + (NSString *)pathToDrawingWithName:(NSString *)drawingName {
     NSString *pathToDrawings = [self pathToDrawings];
     return [pathToDrawings stringByAppendingPathComponent:drawingName];
 }
 
-+ (NSString *)pathToDrawingWithName:(NSString *)drawingName andExtension:(NSString *)extension {
-    NSString *pathToDrawings = [self pathToDrawings];
-    NSString *pathToDrawing = [pathToDrawings stringByAppendingPathComponent:drawingName];
-    return [pathToDrawing stringByAppendingPathExtension:extension];
++ (NSString *)pathToPreviewWithName:(NSString *)previewName {
+    NSString *pathToPreviews = [self pathToPreviews];
+    return [pathToPreviews stringByAppendingPathComponent:previewName];
 }
 
 + (NSArray<NSString *> *)existentDrawingsNames {
@@ -26,16 +31,14 @@
                                             error:nil];
 }
 
++ (BOOL)createPreviewsDirIfNotExists {
+    NSString *pathToPreviews = [self pathToPreviews];
+    return [self createDirIfNotExists:pathToPreviews];
+}
+
 + (BOOL)createDrawingsDirIfNotExists {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathToDrawings = [self pathToDrawings];
-    if (![fileManager fileExistsAtPath:pathToDrawings]) {
-        return [fileManager createDirectoryAtPath:pathToDrawings
-                      withIntermediateDirectories:NO
-                                       attributes:nil
-                                            error:nil];
-    }
-    return NO;
+    return [self createDirIfNotExists:pathToDrawings];
 }
 
 + (BOOL)saveDrawingLines:(NSMutableArray *)lines withName:(NSString *)name {
@@ -48,14 +51,25 @@
     return [NSKeyedUnarchiver unarchiveObjectWithFile:pathToDrawing];
 }
 
-+ (BOOL)saveDrawingAsPNG:(NSData *)drawing withName:(NSString *)name {
-    NSString *pathToDrawingPNG = [FileSystemUtils pathToDrawingWithName:name andExtension:@"png"];
-    return [drawing writeToFile:pathToDrawingPNG atomically:YES];
++ (BOOL)savePreview:(NSData *)preview withName:(NSString *)name {
+    NSString *pathToPreview = [FileSystemUtils pathToPreviewWithName:name];
+    return [preview writeToFile:pathToPreview atomically:YES];
 }
 
-+ (NSData *)drawingPNGByName:(NSString *)name {
-    NSString *pathToDrawingPNG = [FileSystemUtils pathToDrawingWithName:name andExtension:@"png"];
-    return [NSData dataWithContentsOfFile:pathToDrawingPNG];
++ (NSData *)previewByName:(NSString *)name {
+    NSString *pathToPreview = [FileSystemUtils pathToPreviewWithName:name];
+    return [NSData dataWithContentsOfFile:pathToPreview];
+}
+
++ (BOOL)createDirIfNotExists:(NSString *)pathToDir {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:pathToDir]) {
+        return [fileManager createDirectoryAtPath:pathToDir
+                      withIntermediateDirectories:NO
+                                       attributes:nil
+                                            error:nil];
+    }
+    return NO;
 }
 
 @end
