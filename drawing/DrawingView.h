@@ -8,4 +8,9 @@
 
 - (void)clear;
 
+- (BOOL)undo;
+
+- (BOOL)redo;
+
+- (void)scaleToSize:(CGSize)size;
 @end

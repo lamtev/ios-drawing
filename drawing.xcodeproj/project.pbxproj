@@ -20,7 +20,9 @@
 		32FFFDEF20207291005031E5 /* NewDrawingCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDEE20207291005031E5 /* NewDrawingCreationViewController.m */; };
 		32FFFDF220208387005031E5 /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDF120208387005031E5 /* DrawingViewController.m */; };
 		32FFFDF520211AEC005031E5 /* ExistentDrawingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDF420211AEC005031E5 /* ExistentDrawingsViewController.m */; };
+		C17D6099C029992E3AC4F6C7 /* MutableArrayStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C17D630D173CD738DAA468D8 /* MutableArrayStack.m */; };
 		C17D635D2693703405DE0F56 /* NSString+JStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C17D6596EE370EDE6B381211 /* NSString+JStyle.m */; };
+		C17D65F426F245306E9EEB1E /* MutableArrayStackTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C17D641F68F02BB556261967 /* MutableArrayStackTest.m */; };
 		C17D6A39583312ADAB0288D0 /* FileSystemUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C17D6D4B9CCA80510AF079F2 /* FileSystemUtils.m */; };
 /* End PBXBuildFile section */
 
@@ -60,9 +62,13 @@
 		32FFFDF120208387005031E5 /* DrawingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
 		32FFFDF320211AEC005031E5 /* ExistentDrawingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExistentDrawingsViewController.h; sourceTree = "<group>"; };
 		32FFFDF420211AEC005031E5 /* ExistentDrawingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExistentDrawingsViewController.m; sourceTree = "<group>"; };
+		C17D630D173CD738DAA468D8 /* MutableArrayStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutableArrayStack.m; sourceTree = "<group>"; };
+		C17D641F68F02BB556261967 /* MutableArrayStackTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutableArrayStackTest.m; sourceTree = "<group>"; };
+		C17D654ADC29A4EFB966D64C /* MutableArrayStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutableArrayStack.h; sourceTree = "<group>"; };
 		C17D6596EE370EDE6B381211 /* NSString+JStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JStyle.m"; sourceTree = "<group>"; };
 		C17D67C00980FA9862ECD246 /* NSString+JStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JStyle.h"; sourceTree = "<group>"; };
 		C17D6D4B9CCA80510AF079F2 /* FileSystemUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSystemUtils.m; sourceTree = "<group>"; };
+		C17D6F4A8C7DDC601929C59A /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stack.h; sourceTree = "<group>"; };
 		C17D6FA62840747A14422C9E /* FileSystemUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemUtils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +136,9 @@
 				32A1612220283CAD006526B6 /* Line.m */,
 				32A161242028C394006526B6 /* UIColor+ByName.h */,
 				32A161252028C394006526B6 /* UIColor+ByName.m */,
+				C17D6F4A8C7DDC601929C59A /* Stack.h */,
+				C17D630D173CD738DAA468D8 /* MutableArrayStack.m */,
+				C17D654ADC29A4EFB966D64C /* MutableArrayStack.h */,
 			);
 			path = drawing;
 			sourceTree = "<group>";
@@ -139,6 +148,7 @@
 			children = (
 				32FFFDE2202070AA005031E5 /* drawingTests.m */,
 				32FFFDE4202070AA005031E5 /* Info.plist */,
+				C17D641F68F02BB556261967 /* MutableArrayStackTest.m */,
 			);
 			path = drawingTests;
 			sourceTree = "<group>";
@@ -256,6 +266,7 @@
 				C17D635D2693703405DE0F56 /* NSString+JStyle.m in Sources */,
 				32FFFDF520211AEC005031E5 /* ExistentDrawingsViewController.m in Sources */,
 				C17D6A39583312ADAB0288D0 /* FileSystemUtils.m in Sources */,
+				C17D6099C029992E3AC4F6C7 /* MutableArrayStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32FFFDE3202070AA005031E5 /* drawingTests.m in Sources */,
+				C17D65F426F245306E9EEB1E /* MutableArrayStackTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
