@@ -115,7 +115,7 @@
         <scene sceneID="8wL-Ug-UC5">
             <objects>
                 <viewController id="dFt-nX-hfH" customClass="DrawingViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="S6N-9b-gGO">
+                    <view key="view" contentMode="scaleToFill" id="S6N-9b-gGO" customClass="DrawingView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -123,8 +123,16 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem systemItem="undo" id="Hn0-j8-cSl"/>
-                                    <barButtonItem systemItem="redo" id="RGp-dw-49A"/>
+                                    <barButtonItem systemItem="undo" id="Hn0-j8-cSl">
+                                        <connections>
+                                            <action selector="undoButtonPressed:" destination="dFt-nX-hfH" id="L0f-hh-pvP"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="redo" id="RGp-dw-49A">
+                                        <connections>
+                                            <action selector="redoButtonPressed:" destination="dFt-nX-hfH" id="0eH-i4-L2v"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" id="50h-8H-Knb">
                                         <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="1" maxValue="20" id="aAS-eZ-kTx">
                                             <rect key="frame" x="127" y="5" width="129" height="34"/>
@@ -134,7 +142,11 @@
                                             </connections>
                                         </slider>
                                     </barButtonItem>
-                                    <barButtonItem title="Color" width="75.5" id="KJw-BR-419"/>
+                                    <barButtonItem title="Color" width="75.5" id="KJw-BR-419">
+                                        <connections>
+                                            <action selector="colorButtonPressed:" destination="dFt-nX-hfH" id="m0P-Xc-oXu"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem systemItem="trash" id="ci2-R9-e00">
                                         <connections>
                                             <action selector="clearButtonPressed:" destination="dFt-nX-hfH" id="Iyd-dY-afG"/>
@@ -142,10 +154,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZw-UC-QMZ" userLabel="drawingImage">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Lh0-mr-LKD"/>
@@ -163,7 +171,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="drawingImage" destination="EZw-UC-QMZ" id="mT6-no-C4m"/>
                         <outlet property="navigationItem" destination="KzE-SM-mMG" id="pmi-hs-1av"/>
                     </connections>
                 </viewController>
@@ -259,6 +266,6 @@
         <image name="BackButton" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DJ4-nZ-EPm"/>
+        <segue reference="VOL-BC-anq"/>
     </inferredMetricsTieBreakers>
 </document>

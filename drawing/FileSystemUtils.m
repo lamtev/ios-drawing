@@ -20,11 +20,6 @@
                                             error:nil];
 }
 
-+ (NSData *)drawingByName:(id)name {
-    NSString *pathToDrawing = [self pathToDrawingWithName:name];
-    return [NSData dataWithContentsOfFile:pathToDrawing];
-}
-
 + (BOOL)createDrawingsDirIfNotExists {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathToDrawings = [self pathToDrawings];
@@ -37,9 +32,14 @@
     return NO;
 }
 
-+ (BOOL)saveDrawingAsPNG:(NSData *)drawing withName:(NSString *)name {
++ (BOOL)saveDrawingLines:(NSMutableArray *)lines withName:(NSString *)name {
     NSString *pathToDrawing = [FileSystemUtils pathToDrawingWithName:name];
-    return [drawing writeToFile:pathToDrawing atomically:YES];
+    return [NSKeyedArchiver archiveRootObject:lines toFile:pathToDrawing];
+}
+
++ (NSMutableArray *)drawingLinesByName:(NSString *)name {
+    NSString *pathToDrawing = [self pathToDrawingWithName:name];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:pathToDrawing];
 }
 
 @end
