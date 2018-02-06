@@ -5,8 +5,8 @@
 @interface DrawingView ()
 @property(nonatomic, assign) CGPoint lastPoint;
 @property(nonatomic, assign) BOOL touchIsSingle;
-@property MutableArrayStack *undoStack;
-@property MutableArrayStack *redoStack;
+@property(nonatomic) MutableArrayStack *undoStack;
+@property(nonatomic) MutableArrayStack *redoStack;
 @end
 
 @implementation DrawingView
@@ -110,6 +110,16 @@
     self.lines = [self.redoStack pop];
     [self setNeedsDisplay];
     return YES;
+}
+
+- (void)scaleToSize:(CGSize)size {
+    CGFloat coeff = size.width / [self frame].size.width;
+    if (coeff != 1) {
+        for (Line *line in self.lines) {
+            [line scaleByCoeff:coeff];
+        }
+        [self setNeedsDisplay];
+    }
 }
 
 @end

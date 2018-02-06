@@ -9,4 +9,6 @@
 
 - (instancetype)initWithStartPoint:(CGPoint)startPoint andEndPoint:(CGPoint)endPoint
                           andColor:(UIColor *)color andThickness:(CGFloat)thickness;
+
+- (void)scaleByCoeff:(CGFloat)coeff;
 @end
