@@ -39,4 +39,9 @@
     return self;
 }
 
+- (void)scaleByCoeff:(CGFloat)coeff {
+    self.startPoint = CGPointMake(self.startPoint.x * coeff, self.startPoint.y / coeff);
+    self.endPoint = CGPointMake(self.endPoint.x * coeff, self.endPoint.y / coeff);
+}
+
 @end

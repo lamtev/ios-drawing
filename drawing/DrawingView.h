@@ -12,4 +12,5 @@
 
 - (BOOL)redo;
 
+- (void)scaleToSize:(CGSize)size;
 @end
