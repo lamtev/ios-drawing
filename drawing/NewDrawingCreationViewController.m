@@ -25,4 +25,8 @@
     [self.drawingNameField resignFirstResponder];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 @end

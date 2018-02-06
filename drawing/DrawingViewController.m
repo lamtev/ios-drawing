@@ -89,14 +89,14 @@
     [drawingView redo];
 }
 
-- (void)canRotate {
-    //Method enables landscape mode
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     DrawingView *drawingView = (DrawingView *) self.view;
     [drawingView scaleToSize:size];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 @end

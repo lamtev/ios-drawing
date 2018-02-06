@@ -9,11 +9,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    dispatch_queue_t queue;
-    queue = dispatch_queue_create("serialDispatchQueue", NULL);
-    dispatch_async(queue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, NULL), ^{
         [FileSystemUtils createDrawingsDirIfNotExists];
     });
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end
