@@ -20,9 +20,9 @@
 }
 
 - (BOOL)push:(nonnull id)element {
-    NSUInteger size = [self.array count];
+    NSUInteger size = self.array.count;
     [self.array addObject:element];
-    return [self.array count] != size;
+    return self.array.count != size;
 }
 
 - (id)pop {
@@ -33,11 +33,11 @@
 }
 
 - (NSUInteger)count {
-    return [self.array count];
+    return self.array.count;
 }
 
 - (BOOL)isEmpty {
-    return [self count] == 0;
+    return self.count == 0;
 }
 
 - (void)removeAllObjects {

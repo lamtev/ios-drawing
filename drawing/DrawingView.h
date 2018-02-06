@@ -5,6 +5,7 @@
 @property(nonatomic) UIColor *color;
 @property(nonatomic, assign) CGFloat thickness;
 @property(nonatomic) NSMutableArray *lines;
+@property (nonatomic, readonly) UIImage *previewImage;
 
 - (void)clear;
 

@@ -53,6 +53,10 @@
         [FileSystemUtils saveDrawingLines:lines
                                  withName:self.drawingName];
     });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [FileSystemUtils saveDrawingAsPNG:UIImagePNGRepresentation(drawingView.previewImage)
+                                 withName:self.drawingName];
+    });
 }
 
 - (IBAction)colorButtonPressed:(UIBarButtonItem *)sender {
@@ -89,7 +93,8 @@
     [drawingView redo];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     DrawingView *drawingView = (DrawingView *) self.view;
     [drawingView scaleToSize:size];

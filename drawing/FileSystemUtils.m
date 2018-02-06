@@ -13,6 +13,12 @@
     return [pathToDrawings stringByAppendingPathComponent:drawingName];
 }
 
++ (NSString *)pathToDrawingWithName:(NSString *)drawingName andExtension:(NSString *)extension {
+    NSString *pathToDrawings = [self pathToDrawings];
+    NSString *pathToDrawing = [pathToDrawings stringByAppendingPathComponent:drawingName];
+    return [pathToDrawing stringByAppendingPathExtension:extension];
+}
+
 + (NSArray<NSString *> *)existentDrawingsNames {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathToDrawings = [self pathToDrawings];
@@ -40,6 +46,16 @@
 + (NSMutableArray *)drawingLinesByName:(NSString *)name {
     NSString *pathToDrawing = [self pathToDrawingWithName:name];
     return [NSKeyedUnarchiver unarchiveObjectWithFile:pathToDrawing];
+}
+
++ (BOOL)saveDrawingAsPNG:(NSData *)drawing withName:(NSString *)name {
+    NSString *pathToDrawingPNG = [FileSystemUtils pathToDrawingWithName:name andExtension:@"png"];
+    return [drawing writeToFile:pathToDrawingPNG atomically:YES];
+}
+
++ (NSData *)drawingPNGByName:(NSString *)name {
+    NSString *pathToDrawingPNG = [FileSystemUtils pathToDrawingWithName:name andExtension:@"png"];
+    return [NSData dataWithContentsOfFile:pathToDrawingPNG];
 }
 
 @end
