@@ -4,7 +4,7 @@
 
 
 @interface ExistentDrawingsViewController ()
-@property(nonatomic) NSMutableArray *photoArray;
+@property(nonatomic) NSMutableArray *drawingsNames;
 @property(nonatomic) NSString *selectedCellDrawingName;
 @end
 
@@ -13,12 +13,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.photoArray = [[FileSystemUtils existentDrawingsNames] mutableCopy];
+        self.drawingsNames = [[FileSystemUtils existentDrawingsNames] mutableCopy];
     });
-    UITableView *tableView = (id) [self.view viewWithTag:1];
-    UIEdgeInsets contentInset = tableView.contentInset;
-    contentInset.top = 20;
-    [tableView setContentInset:contentInset];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,7 +26,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.photoArray count];
+    return [self.drawingsNames count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -42,7 +38,7 @@
                 initWithStyle:UITableViewCellStyleDefault
               reuseIdentifier:identifier];
     }
-    cell.textLabel.text = self.photoArray[(NSUInteger) indexPath.row];
+    cell.textLabel.text = self.drawingsNames[(NSUInteger) indexPath.row];
     return cell;
 }
 
@@ -51,7 +47,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *rowValue = self.photoArray[(NSUInteger) indexPath.row];
+    NSString *rowValue = self.drawingsNames[(NSUInteger) indexPath.row];
     self.selectedCellDrawingName = rowValue;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UINavigationController *controller =
@@ -63,6 +59,10 @@
     [self presentViewController:controller
                        animated:YES
                      completion:nil];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end
