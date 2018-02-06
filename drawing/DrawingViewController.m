@@ -54,8 +54,9 @@
                                  withName:self.drawingName];
     });
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [FileSystemUtils saveDrawingAsPNG:UIImagePNGRepresentation(drawingView.previewImage)
-                                 withName:self.drawingName];
+        NSLog(@"save %@", drawingView.previewImage);
+        [FileSystemUtils savePreview:UIImagePNGRepresentation(drawingView.previewImage)
+                            withName:self.drawingName];
     });
 }
 

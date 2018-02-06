@@ -56,10 +56,7 @@
         CGContextSetRGBStrokeColor(context, red, green, blue, alpha);
         CGContextStrokePath(context);
     }
-    CGSize newSize = CGSizeMake(self.frame.size.width / 10, self.frame.size.height / 10);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    self.previewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    //TODO image;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
