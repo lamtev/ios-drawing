@@ -79,6 +79,16 @@
                      completion:nil];
 }
 
+- (IBAction)undoButtonPressed:(UIBarButtonItem *)sender {
+    DrawingView *drawingView = (DrawingView *) self.view;
+    [drawingView undo];
+}
+
+- (IBAction)redoButtonPressed:(UIBarButtonItem *)sender {
+    DrawingView *drawingView = (DrawingView *) self.view;
+    [drawingView redo];
+}
+
 - (void)canRotate {
     //Method enables landscape mode
 }
