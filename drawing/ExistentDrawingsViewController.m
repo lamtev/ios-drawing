@@ -45,7 +45,6 @@
     cell.textLabel.text = name;
     NSData *imageData = [FileSystemUtils previewByName:name];
     UIImage *image = [UIImage imageWithData:imageData];
-    NSLog(@"cell %@", image);
     cell.imageView.image = image;
     return cell;
 }

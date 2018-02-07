@@ -11,4 +11,5 @@
                           andColor:(UIColor *)color andThickness:(CGFloat)thickness;
 
 - (void)scaleByCoeff:(CGFloat)coeff;
+
 @end
