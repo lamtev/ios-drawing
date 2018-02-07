@@ -5,4 +5,5 @@
  * Non thread safe Stack protocol implementation
  */
 @interface MutableArrayStack : NSObject <Stack>
+
 @end

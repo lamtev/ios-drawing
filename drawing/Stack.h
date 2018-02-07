@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol Stack
+
 - (BOOL)push:(nonnull id)element;
 
 - (nonnull id)pop;
@@ -9,7 +10,8 @@
 
 - (BOOL)isEmpty;
 
--(void)removeAllObjects;
+- (void)removeAllObjects;
 
--(nonnull id)top;
+- (nonnull id)top;
+
 @end

@@ -7,8 +7,6 @@
 
 @implementation NewDrawingCreationViewController
 
-#pragma mark - Navigation
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSString *identifier = [segue identifier];
     if ([identifier isEqualToString:@"NewDrawingCreationToDrawing"]) {

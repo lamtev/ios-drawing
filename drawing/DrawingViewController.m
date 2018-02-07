@@ -49,9 +49,14 @@
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
     DrawingView *drawingView = (DrawingView *) self.view;
     NSMutableArray *lines = [[drawingView lines] copy];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
         [FileSystemUtils saveDrawingLines:lines
                                  withName:self.drawingName];
+    });
+    dispatch_async(queue, ^{
+        [FileSystemUtils savePreview:UIImagePNGRepresentation(drawingView.previewImage)
+                            withName:self.drawingName];
     });
 }
 
@@ -60,7 +65,7 @@
             [UIAlertController alertControllerWithTitle:@"Choosing color"
                                                 message:nil
                                          preferredStyle:UIAlertControllerStyleActionSheet];
-    NSArray *colors = @[@"Black", @"Red", @"Blue", @"Green", @"Orange", @"Purple", @"White"];
+    NSArray *colors = @[@"Black", @"Red", @"Green", @"Blue", @"Orange", @"Purple", @"White"];
     for (NSString *color in colors) {
         UIAlertAction *action = [UIAlertAction actionWithTitle:color
                                                          style:UIAlertActionStyleDefault
@@ -89,7 +94,8 @@
     [drawingView redo];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     DrawingView *drawingView = (DrawingView *) self.view;
     [drawingView scaleToSize:size];

@@ -15,6 +15,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.drawingsNames = [[FileSystemUtils existentDrawingsNames] mutableCopy];
     });
+    UITableView *tableView = (UITableView *) self.view;
+    tableView.estimatedRowHeight = 50;
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,7 +29,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.drawingsNames count];
+    return self.drawingsNames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -38,7 +41,11 @@
                 initWithStyle:UITableViewCellStyleDefault
               reuseIdentifier:identifier];
     }
-    cell.textLabel.text = self.drawingsNames[(NSUInteger) indexPath.row];
+    NSString *name = self.drawingsNames[(NSUInteger) indexPath.row];
+    cell.textLabel.text = name;
+    NSData *imageData = [FileSystemUtils previewByName:name];
+    UIImage *image = [UIImage imageWithData:imageData];
+    cell.imageView.image = image;
     return cell;
 }
 
