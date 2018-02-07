@@ -2,6 +2,7 @@
 
 
 @interface FileSystemUtils : NSObject
+
 + (NSString *)pathToDrawings;
 
 + (NSString *)pathToDrawingWithName:(NSString *)drawingName;
@@ -19,4 +20,5 @@
 + (BOOL)savePreview:(NSData *)preview withName:(NSString *)name;
 
 + (NSData *)previewByName:(NSString *)name;
+
 @end

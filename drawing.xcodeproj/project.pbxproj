@@ -10,6 +10,7 @@
 		32A1611F20283C53006526B6 /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1611E20283C53006526B6 /* DrawingView.m */; };
 		32A1612320283CAD006526B6 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1612220283CAD006526B6 /* Line.m */; };
 		32A161262028C394006526B6 /* UIColor+ByName.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A161252028C394006526B6 /* UIColor+ByName.m */; };
+		32A16129202B1944006526B6 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A16128202B1944006526B6 /* UIImage+Scale.m */; };
 		32FFFDCB202070AA005031E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDCA202070AA005031E5 /* AppDelegate.m */; };
 		32FFFDCE202070AA005031E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FFFDCD202070AA005031E5 /* ViewController.m */; };
 		32FFFDD1202070AA005031E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32FFFDCF202070AA005031E5 /* Main.storyboard */; };
@@ -43,6 +44,8 @@
 		32A1612220283CAD006526B6 /* Line.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 		32A161242028C394006526B6 /* UIColor+ByName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+ByName.h"; sourceTree = "<group>"; };
 		32A161252028C394006526B6 /* UIColor+ByName.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ByName.m"; sourceTree = "<group>"; };
+		32A16127202B1944006526B6 /* UIImage+Scale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
+		32A16128202B1944006526B6 /* UIImage+Scale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		32FFFDC6202070AA005031E5 /* drawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32FFFDC9202070AA005031E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		32FFFDCA202070AA005031E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 				C17D6F4A8C7DDC601929C59A /* Stack.h */,
 				C17D630D173CD738DAA468D8 /* MutableArrayStack.m */,
 				C17D654ADC29A4EFB966D64C /* MutableArrayStack.h */,
+				32A16127202B1944006526B6 /* UIImage+Scale.h */,
+				32A16128202B1944006526B6 /* UIImage+Scale.m */,
 			);
 			path = drawing;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				32A1612320283CAD006526B6 /* Line.m in Sources */,
 				32A161262028C394006526B6 /* UIColor+ByName.m in Sources */,
 				32FFFDEF20207291005031E5 /* NewDrawingCreationViewController.m in Sources */,
+				32A16129202B1944006526B6 /* UIImage+Scale.m in Sources */,
 				C17D635D2693703405DE0F56 /* NSString+JStyle.m in Sources */,
 				32FFFDF520211AEC005031E5 /* ExistentDrawingsViewController.m in Sources */,
 				C17D6A39583312ADAB0288D0 /* FileSystemUtils.m in Sources */,

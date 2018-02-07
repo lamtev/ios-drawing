@@ -1,13 +1,14 @@
 #import "DrawingView.h"
 #import "Line.h"
 #import "MutableArrayStack.h"
+#import "UIImage+Scale.h"
 
 @interface DrawingView ()
 @property(nonatomic, assign) CGPoint lastPoint;
 @property(nonatomic, assign) BOOL touchIsSingle;
 @property(nonatomic) MutableArrayStack *undoStack;
 @property(nonatomic) MutableArrayStack *redoStack;
-@property (nonatomic) UIImage *previewImage;
+@property(nonatomic) UIImage *previewImage;
 @end
 
 @implementation DrawingView
@@ -45,9 +46,14 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
+    [self drawToContext:context];
+    [self updatePreviewInBackground];
+}
+
+- (void)drawToContext:(struct CGContext *const)context {
     CGContextBeginPath(context);
     CGContextSetLineCap(context, kCGLineCapRound);
-    for (Line *line in self.lines) {
+    for (Line *line in [self.lines copy]) {
         CGContextSetLineWidth(context, line.thickness);
         CGContextMoveToPoint(context, line.startPoint.x, line.startPoint.y);
         CGContextAddLineToPoint(context, line.endPoint.x, line.endPoint.y);
@@ -56,7 +62,26 @@
         CGContextSetRGBStrokeColor(context, red, green, blue, alpha);
         CGContextStrokePath(context);
     }
-    //TODO image;
+}
+
+- (void)updatePreviewInBackground {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        CGSize oldSize = self.frame.size;
+        CGSize newSize = CGSizeMake(oldSize.width / 20, oldSize.height / 20);
+        UIImage *image = [self imageFromCurrentDrawing];
+        self.previewImage = [image scaleToSize:newSize];
+    });
+}
+
+- (UIImage *)imageFromCurrentDrawing {
+    CGRect rect = self.frame;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self drawToContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
