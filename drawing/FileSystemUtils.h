@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+@class Drawing;
+
 
 @interface FileSystemUtils : NSObject
 
@@ -13,9 +15,9 @@
 
 + (BOOL)createDrawingsDirIfNotExists;
 
-+ (BOOL)saveDrawingLines:(NSMutableArray *)lines withName:(NSString *)name;
++ (BOOL)saveDrawing:(Drawing *)drawing withName:(NSString *)name;
 
-+ (NSMutableArray *)drawingLinesByName:(NSString *)name;
++ (Drawing *)drawingByName:(NSString *)name;
 
 + (BOOL)savePreview:(NSData *)preview withName:(NSString *)name;
 

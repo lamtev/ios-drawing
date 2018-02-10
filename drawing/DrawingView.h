@@ -1,11 +1,14 @@
 #import <UIKit/UIKit.h>
 
+@class Drawing;
+
 @interface DrawingView : UIView
 
 @property(nonatomic) UIColor *color;
 @property(nonatomic, assign) CGFloat thickness;
-@property(nonatomic) NSMutableArray *lines;
-@property(nonatomic, readonly) UIImage *previewImage;
+@property(nonatomic) Drawing *drawing;
+
+- (UIImage *)previewImage;
 
 - (void)clear;
 

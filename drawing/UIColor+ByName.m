@@ -12,10 +12,16 @@
         return [UIColor greenColor];
     } else if ([name isEqualToString:@"blue"]) {
         return [UIColor blueColor];
+    } else if ([name isEqualToString:@"cyan"]) {
+        return [UIColor cyanColor];
     } else if ([name isEqualToString:@"orange"]) {
         return [UIColor orangeColor];
     } else if ([name isEqualToString:@"purple"]) {
         return [UIColor purpleColor];
+    } else if ([name isEqualToString:@"magenta"]) {
+        return [UIColor magentaColor];
+    } else if ([name isEqualToString:@"brown"]) {
+        return [UIColor brownColor];
     } else if ([name isEqualToString:@"white"]) {
         return [UIColor whiteColor];
     }

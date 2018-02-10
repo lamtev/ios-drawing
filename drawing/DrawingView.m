@@ -2,13 +2,13 @@
 #import "Line.h"
 #import "MutableArrayStack.h"
 #import "UIImage+Scale.h"
+#import "Drawing.h"
 
 @interface DrawingView ()
 @property(nonatomic, assign) CGPoint lastPoint;
 @property(nonatomic, assign) BOOL touchIsSingle;
 @property(nonatomic) MutableArrayStack *undoStack;
 @property(nonatomic) MutableArrayStack *redoStack;
-@property(nonatomic) UIImage *previewImage;
 @end
 
 @implementation DrawingView
@@ -32,28 +32,27 @@
 - (void)setUp {
     _color = [UIColor blackColor];
     _thickness = 5.0;
-    _lines = [NSMutableArray array];
-    _undoStack = [[MutableArrayStack alloc] init];
-    _redoStack = [[MutableArrayStack alloc] init];
+    _drawing = [Drawing drawingWithSize:self.frame.size];
+    _undoStack = [MutableArrayStack stack];
+    _redoStack = [MutableArrayStack stack];
     self.backgroundColor = [UIColor whiteColor];
     self.opaque = NO;
 }
 
-- (void)setLines:(NSMutableArray *)lines {
-    _lines = [lines mutableCopy];
+- (void)setDrawing:(Drawing *)drawing {
+    _drawing = [drawing mutableCopy];
     [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self drawToContext:context];
-    [self updatePreviewInBackground];
 }
 
 - (void)drawToContext:(struct CGContext *const)context {
     CGContextBeginPath(context);
     CGContextSetLineCap(context, kCGLineCapRound);
-    for (Line *line in [self.lines copy]) {
+    for (Line *line in [[self.drawing copy] lines]) {
         CGContextSetLineWidth(context, line.thickness);
         CGContextMoveToPoint(context, line.startPoint.x, line.startPoint.y);
         CGContextAddLineToPoint(context, line.endPoint.x, line.endPoint.y);
@@ -64,13 +63,11 @@
     }
 }
 
-- (void)updatePreviewInBackground {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        CGSize oldSize = self.frame.size;
-        CGSize newSize = CGSizeMake(oldSize.width / 20, oldSize.height / 20);
-        UIImage *image = [self imageFromCurrentDrawing];
-        self.previewImage = [image scaleToSize:newSize];
-    });
+- (UIImage *)previewImage {
+    CGSize oldSize = self.frame.size;
+    CGSize newSize = CGSizeMake(oldSize.width / 20, oldSize.width / 15);
+    UIImage *image = [[self imageFromCurrentDrawing] scaleToSize:newSize];
+    return image;
 }
 
 - (UIImage *)imageFromCurrentDrawing {
@@ -88,19 +85,18 @@
     UITouch *touch = [touches anyObject];
     self.lastPoint = [touch locationInView:self];
     self.touchIsSingle = YES;
-    [self.undoStack push:[self.lines mutableCopy]];
+    [self.undoStack push:[self.drawing mutableCopy]];
     [self.redoStack removeAllObjects];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint currentPoint = [touch locationInView:self];
-    Line *line = [Line alloc];
-    line = [line initWithStartPoint:self.lastPoint
-                        andEndPoint:currentPoint
-                           andColor:self.color
-                       andThickness:self.thickness];
-    [self.lines addObject:line];
+    Line *line = [Line lineWithStartPoint:self.lastPoint
+                              andEndPoint:currentPoint
+                                 andColor:self.color
+                             andThickness:self.thickness];
+    [self.drawing.lines addObject:line];
     self.lastPoint = currentPoint;
     self.touchIsSingle = NO;
     [self setNeedsDisplay];
@@ -113,8 +109,8 @@
 }
 
 - (void)clear {
-    [self.undoStack push:[self.lines mutableCopy]];
-    [self.lines removeAllObjects];
+    [self.undoStack push:[self.drawing mutableCopy]];
+    [self.drawing.lines removeAllObjects];
     [self setNeedsDisplay];
 }
 
@@ -122,9 +118,9 @@
     if ([self.undoStack isEmpty]) {
         return NO;
     }
-    NSMutableArray *lines = [self.undoStack pop];
-    [self.redoStack push:self.lines];
-    self.lines = lines;
+    Drawing *drawing = [self.undoStack pop];
+    [self.redoStack push:self.drawing];
+    self.drawing = drawing;
     [self setNeedsDisplay];
     return YES;
 }
@@ -133,20 +129,15 @@
     if ([self.redoStack isEmpty]) {
         return NO;
     }
-    [self.undoStack push:self.lines];
-    self.lines = [self.redoStack pop];
+    [self.undoStack push:self.drawing];
+    self.drawing = [self.redoStack pop];
     [self setNeedsDisplay];
     return YES;
 }
 
 - (void)scaleToSize:(CGSize)size {
-    CGFloat coeff = size.width / [self frame].size.width;
-    if (coeff != 1) {
-        for (Line *line in self.lines) {
-            [line scaleByCoeff:coeff];
-        }
-        [self setNeedsDisplay];
-    }
+    [self.drawing scaleToSize:size];
+    [self setNeedsDisplay];
 }
 
 @end

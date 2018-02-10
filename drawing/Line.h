@@ -1,13 +1,13 @@
 #import <UIKit/UIKit.h>
 
-@interface Line : NSObject <NSCoding>
+@interface Line : NSObject <NSCoding, NSCopying>
 
 @property(assign, readonly) CGPoint startPoint;
 @property(assign, readonly) CGPoint endPoint;
 @property(readonly) UIColor *color;
 @property(assign, readonly) CGFloat thickness;
 
-- (instancetype)initWithStartPoint:(CGPoint)startPoint andEndPoint:(CGPoint)endPoint
++ (instancetype)lineWithStartPoint:(CGPoint)startPoint andEndPoint:(CGPoint)endPoint
                           andColor:(UIColor *)color andThickness:(CGFloat)thickness;
 
 - (void)scaleByCoeff:(CGFloat)coeff;

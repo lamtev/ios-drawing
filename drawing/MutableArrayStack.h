@@ -6,4 +6,8 @@
  */
 @interface MutableArrayStack : NSObject <Stack>
 
++ (instancetype)stack;
+
++ (instancetype)stackWithCapacity:(NSUInteger)capacity;
+
 @end

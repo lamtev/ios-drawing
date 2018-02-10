@@ -3,6 +3,7 @@
 #import "FileSystemUtils.h"
 #import "DrawingView.h"
 #import "UIColor+ByName.h"
+#import "Drawing.h"
 
 @interface DrawingViewController ()
 @property(nonatomic) IBOutlet UINavigationItem *navigationItem;
@@ -27,11 +28,17 @@
 }
 
 - (void)loadExistentDrawing {
+    BOOL orientationIsPortrait = UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *lines = [FileSystemUtils drawingLinesByName:self.drawingName];
+        Drawing *drawing = [FileSystemUtils drawingByName:self.drawingName];
+        if (orientationIsPortrait) {
+            drawing = [drawing portraitCopy];
+        } else {
+            drawing = [drawing landscapeCopy];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             DrawingView *drawingView = (DrawingView *) self.view;
-            drawingView.lines = lines;
+            drawingView.drawing = drawing;
         });
     });
 }
@@ -48,15 +55,18 @@
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
     DrawingView *drawingView = (DrawingView *) self.view;
-    NSMutableArray *lines = [[drawingView lines] copy];
+    Drawing *drawing = [drawingView.drawing copy];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
-        [FileSystemUtils saveDrawingLines:lines
-                                 withName:self.drawingName];
+        [FileSystemUtils saveDrawing:drawing
+                            withName:self.drawingName];
     });
     dispatch_async(queue, ^{
-        [FileSystemUtils savePreview:UIImagePNGRepresentation(drawingView.previewImage)
-                            withName:self.drawingName];
+        UIImage *image = [drawingView previewImage];
+        dispatch_async(queue, ^{
+            [FileSystemUtils savePreview:UIImagePNGRepresentation(image)
+                                withName:self.drawingName];
+        });
     });
 }
 
@@ -65,7 +75,8 @@
             [UIAlertController alertControllerWithTitle:@"Choosing color"
                                                 message:nil
                                          preferredStyle:UIAlertControllerStyleActionSheet];
-    NSArray *colors = @[@"Black", @"Red", @"Green", @"Blue", @"Orange", @"Purple", @"White"];
+    NSArray *colors = @[@"Black", @"Red", @"Green", @"Blue", @"Cyan",
+            @"Orange", @"Purple", @"Magenta", @"Brown", @"White"];
     for (NSString *color in colors) {
         UIAlertAction *action = [UIAlertAction actionWithTitle:color
                                                          style:UIAlertActionStyleDefault

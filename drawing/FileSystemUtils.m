@@ -41,12 +41,12 @@
     return [self createDirIfNotExists:pathToDrawings];
 }
 
-+ (BOOL)saveDrawingLines:(NSMutableArray *)lines withName:(NSString *)name {
++ (BOOL)saveDrawing:(Drawing *)drawing withName:(NSString *)name {
     NSString *pathToDrawing = [FileSystemUtils pathToDrawingWithName:name];
-    return [NSKeyedArchiver archiveRootObject:lines toFile:pathToDrawing];
+    return [NSKeyedArchiver archiveRootObject:drawing toFile:pathToDrawing];
 }
 
-+ (NSMutableArray *)drawingLinesByName:(NSString *)name {
++ (Drawing *)drawingByName:(NSString *)name {
     NSString *pathToDrawing = [self pathToDrawingWithName:name];
     return [NSKeyedUnarchiver unarchiveObjectWithFile:pathToDrawing];
 }

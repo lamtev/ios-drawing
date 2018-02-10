@@ -7,6 +7,15 @@
 
 @implementation MutableArrayStack
 
++ (instancetype)stack {
+    return [self stackWithCapacity:10];
+}
+
++ (instancetype)stackWithCapacity:(NSUInteger)capacity {
+    MutableArrayStack *stack = [MutableArrayStack alloc];
+    return [stack initWithCapacity:capacity];
+}
+
 - (instancetype)init {
     return [self initWithCapacity:10];
 }

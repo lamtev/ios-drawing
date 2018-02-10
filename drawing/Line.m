@@ -9,6 +9,14 @@
 
 @implementation Line
 
++ (instancetype)lineWithStartPoint:(CGPoint)startPoint andEndPoint:(CGPoint)endPoint andColor:(UIColor *)color andThickness:(CGFloat)thickness {
+    Line *line = [Line alloc];
+    return [line initWithStartPoint:startPoint
+                        andEndPoint:endPoint
+                           andColor:color
+                       andThickness:thickness];
+}
+
 - (instancetype)initWithStartPoint:(CGPoint)startPoint andEndPoint:(CGPoint)endPoint
                           andColor:(UIColor *)color andThickness:(CGFloat)thickness {
     self = [super init];
@@ -37,6 +45,13 @@
         self.thickness = [coder decodeDoubleForKey:@"thickness"];
     }
     return self;
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone {
+    return [Line lineWithStartPoint:self.startPoint
+                        andEndPoint:self.endPoint
+                           andColor:[self.color copy]
+                       andThickness:self.thickness];
 }
 
 - (void)scaleByCoeff:(CGFloat)coeff {
